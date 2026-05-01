@@ -1,0 +1,23 @@
+{
+  "name": "2-topshiriq-pow-web3",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "node": "hardhat node",
+    "compile": "set HARDHAT_USE_SOLCJS=true&& hardhat compile",
+    "deploy": "set HARDHAT_USE_SOLCJS=true&& hardhat run scripts/deploy.js --network localhost",
+    "mine:demo": "node pow-chain.js",
+    "start": "node server.js",
+    "fund": "hardhat run scripts/fund.js --network localhost"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "hardhat": "^2.22.0"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.0.2",
+    "dotenv": "^16.4.5",
+    "ethers": "^6.13.2",
+    "express": "^4.19.2"
+  }
+}

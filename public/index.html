@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PoW Mining + Swap</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg1: #09131f;
+      --bg2: #132b38;
+      --card: rgba(255, 255, 255, 0.9);
+      --text: #0d1b26;
+      --muted: #4d5d6a;
+      --accent: #0aa36c;
+      --accent-2: #1786f9;
+      --danger: #d64045;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Space Grotesk", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(1000px 500px at 90% -10%, #1f6fbf55, transparent),
+        radial-gradient(700px 400px at -10% 110%, #00b38844, transparent),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      padding: 28px 16px;
+    }
+
+    .wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      gap: 16px;
+    }
+
+    .hero {
+      border-radius: 20px;
+      padding: 24px;
+      color: #fff;
+      background: linear-gradient(120deg, #0d2235, #0d4f45);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(28px, 5vw, 44px);
+      letter-spacing: 0.4px;
+    }
+
+    .hero p {
+      margin: 10px 0 0;
+      color: #cde7ff;
+    }
+
+    .card {
+      background: var(--card);
+      backdrop-filter: blur(6px);
+      border: 1px solid #ffffff88;
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 0 8px 24px rgba(7, 22, 38, 0.2);
+    }
+
+    h2 { margin: 0 0 12px; }
+
+    .row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: 0;
+      padding: 11px 16px;
+      border-radius: 12px;
+      cursor: pointer;
+      color: #fff;
+      font-weight: 700;
+      background: linear-gradient(120deg, var(--accent-2), #3366ff);
+      transition: transform .15s ease, filter .2s ease;
+    }
+
+    button:hover { transform: translateY(-1px); filter: brightness(1.04); }
+    button:active { transform: translateY(0); }
+
+    #mine { background: linear-gradient(120deg, var(--accent), #00b887); }
+    #swap { background: linear-gradient(120deg, #ff7a18, #ffb347); color: #1f1400; }
+
+    input {
+      padding: 11px 12px;
+      border-radius: 12px;
+      border: 1px solid #b9c4cf;
+      font-size: 16px;
+      width: 180px;
+      outline: none;
+    }
+
+    input:focus { border-color: var(--accent-2); box-shadow: 0 0 0 3px #1786f933; }
+
+    #account {
+      font-weight: 700;
+      color: var(--muted);
+      background: #f3f6f9;
+      border-radius: 10px;
+      padding: 8px 10px;
+      word-break: break-all;
+    }
+
+    #balances { font-size: 24px; margin: 6px 0 0; font-weight: 700; }
+
+    #log {
+      white-space: pre-wrap;
+      min-height: 140px;
+      padding: 12px;
+      border-radius: 12px;
+      background: #061018;
+      color: #89ffc6;
+      border: 1px solid #1a3347;
+      font-family: "Courier New", monospace;
+    }
+
+    small { color: var(--muted); font-weight: 500; }
+
+    @media (max-width: 700px) {
+      .hero { padding: 18px; }
+      #balances { font-size: 20px; }
+      button, input { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <h1>PoW Mining + Swap</h1>
+      <p>Mine MNT with SHA-256 proof-of-work and swap it to SWP on localhost.</p>
+    </section>
+
+    <section class="card">
+      <h2>Wallet</h2>
+      <div class="row">
+        <button id="connect">Connect Wallet</button>
+        <span id="account">Not connected</span>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Mine MNT</h2>
+      <div class="row">
+        <button id="mine">Start Mining</button>
+      </div>
+      <p id="balances">MNT: 0 | SWP: 0</p>
+    </section>
+
+    <section class="card">
+      <h2>Swap MNT to SWP</h2>
+      <div class="row">
+        <input id="amount" type="number" min="1" value="1" />
+        <button id="swap">Swap</button>
+      </div>
+      <small>Rate: 1 MNT = 2 SWP</small>
+    </section>
+
+    <section class="card">
+      <h2>Logs</h2>
+      <div id="log"></div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.2/dist/ethers.umd.min.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
